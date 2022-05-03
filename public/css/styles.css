@@ -1,0 +1,114 @@
+body {
+        background-color: grey;
+}
+
+.grid {
+        background-image: url("/images/smoke.png");
+        background-repeat: no-repeat;
+        color: white;
+        background-color: black;
+}
+
+.header-section,
+.game-section {
+        overflow: hidden;
+        text-align: center;
+}
+
+.header-section {
+        width: calc(100% - 5.3px);
+        min-height: 75px;
+}
+
+.game-section-left {
+        width: calc(40% - (.5em + 6px));
+        float: left;
+        min-height: 300px;
+        margin-top: 1em;
+        margin-bottom: 1em;
+}
+
+.game-section-right {
+        width: calc(60% - (.5em + 6px));
+        float: right;
+        min-height: 300px;
+        margin-top: 1em;
+        margin-bottom: 1em;
+}
+
+table.guess {
+        margin: auto;
+        padding-top: 2em;
+}
+
+table.guess td {
+        border-bottom: 2px solid white;
+        width: 20px;
+        height: 20px;
+}
+
+table.letter-bank {
+        margin: auto;
+}
+
+table.letter-bank tr {
+        display: flex;
+        justify-content: center;
+}
+
+table.letter-bank td {
+        min-width: 20px;
+        height: 20px;
+        border: 2px solid white;
+        margin: 0.25em;
+}
+
+
+table.letter-bank td::first-letter {
+        text-transform: capitalize;
+}
+
+.skeleton {
+        height: 30rem;
+        width: auto;
+        border: 2px solid black;
+}
+
+/* The Game Over Pop-Up (background) */
+.game-over {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      
+      /* Game Over Pop-Up Content */
+      .game-over-content {
+        background-color: #572a96;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+      
+      /* The Close Button */
+      .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }

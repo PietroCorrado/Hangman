@@ -1,0 +1,107 @@
+<%- include("header") -%>
+<div class="grid">
+    <div class="header-section">
+        <h1>Hangman</h1>
+    </div>
+    <div class="game-section">
+        <div class="game-section-left">
+            <%- answerSection %>
+            <%- attemptsTracker %>
+            <div>
+                <%- letterBank %>
+            </div>
+        </div>
+        <div class="game-section-right">
+            <%- skeleton %>
+        </div>
+
+    </div>
+    <!-- Game Over Pop-Up -->
+    <div id="game-over" class="game-over">
+        <!-- Game Over Pop-Up Content -->
+        <div class="game-over-content">
+            <span class="close">&times;</span>
+            <p class="game-over-text"></p>
+        </div>
+    </div>
+</div>
+
+
+  <script>
+        var attempts = 0
+        var attemptsRemaining = document.getElementsByClassName("attemptsRemaining")[0]
+        var collection = document.getElementsByClassName("answerSection")
+        var result = ""
+        var gameOverPopUp = document.getElementById("game-over");
+        // Get the <span> element that closes the pop-up
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), reload the page
+        span.onclick = function() {
+        window.location.reload()
+        //gameOverPopUp.style.display = "none";
+        }
+        function letterClicked(letterObject){
+            letterObject.removeAttribute("onclick")
+            if(result != ""){
+                return //Disable all relevant letter bank onclick functionality as the game is over
+            }
+            if(attempts < 6){
+                var randomWord = "<%= randomWord %>".toUpperCase()
+                console.log(randomWord)
+                var letter = letterObject.textContent.toUpperCase()
+                letterObject.style.opacity="0.5";
+                if(randomWord.includes(letter)) {
+                    var indices = []
+                    for(var i=0; i<randomWord.length; i++){
+                        if(randomWord[i] === letter){
+                            indices.push(i);
+                        }
+                    }
+                    indices.forEach(function(index){
+                        var answerPosition = document.getElementsByClassName("answerIndex"+index)[0]
+                        answerPosition.textContent = letter
+                    })
+                    letterObject.style.color="green";
+                    var missingLetters = 0
+                    for(i=0; i< collection.length; i++){
+                            if(collection[i].childNodes.length === 0){
+                                missingLetters += 1
+                            } 
+                        }
+                    if(missingLetters < 1){
+                        result = "winner"
+                        gameOverPopUp.style.display = "block";
+                        document.getElementsByClassName("game-over-text")[0].textContent = "You are a " + result + "!"
+                        var winnerImage = document.createElement("img")
+                        winnerImage.src = "/images/winner.png"
+                        document.getElementsByClassName("game-over-content")[0].appendChild(winnerImage)
+                        console.log("here is your result: " + result)
+                    }
+                } else {
+                    letterObject.style.color="red";
+                    attempts+=1
+                    document.getElementsByClassName("skeleton")[0].src="/images/skeleton" + attempts + ".png"
+                    attemptsLeft = 6 - attempts
+                    attemptsRemaining.textContent = "Attempts Remaining: " + attemptsLeft
+                    console.log(attempts)
+                    if(attempts >= 6){
+                        attemptsRemaining.textContent = "Attempts Remaining: 0"
+                        for(i=0; i< collection.length; i++){
+                            if(collection[i].childNodes.length === 0){
+                                result = "loser"
+                            } 
+                        }
+                        gameOverPopUp.style.display = "block";
+                        document.getElementsByClassName("game-over-text")[0].textContent = "You are a " + result + "!"
+                        var loserImage = document.createElement("img")
+                        loserImage.src = "/images/loser.png"
+                        document.getElementsByClassName("game-over-content")[0].appendChild(loserImage)
+                        console.log(result)
+                    }
+                }
+            } 
+        }
+  </script>
+</body>
+
+</html>
