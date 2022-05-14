@@ -92,7 +92,7 @@
                             } 
                         }
                         gameOverPopUp.style.display = "block";
-                        document.getElementsByClassName("game-over-text")[0].textContent = "You are a " + result + "!"
+                        document.getElementsByClassName("game-over-text")[0].textContent = "You are a " + result + "! The correct answer was <%= randomWord %>."
                         var loserImage = document.createElement("img")
                         loserImage.src = "/images/loser.png"
                         document.getElementsByClassName("game-over-content")[0].appendChild(loserImage)
